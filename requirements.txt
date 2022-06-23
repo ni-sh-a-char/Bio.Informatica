@@ -1,0 +1,11 @@
+pip
+Biopython
+neatbio
+matplotlib
+numpy
+pandas
+altair
+mols2grid
+streamlit
+rdkit
+sklearn
