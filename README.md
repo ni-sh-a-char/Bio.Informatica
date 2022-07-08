@@ -21,6 +21,7 @@
 # Docker Hub
 * Install Docker in the System
 * Install Docker Hub in the System
+* [Docker Image Link](https://hub.docker.com/r/piyushmishradocker/bio.informatica)
 * In the terminal type : "docker pull piyushmishradocker/bio.informatica"
 
 # Screenshots of the Project
