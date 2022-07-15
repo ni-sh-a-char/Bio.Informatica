@@ -16,7 +16,7 @@
 # Terminal
 # Install Python and Java into your System.
 * Open terminal in the folder where you have pull the project.
-* Run "pip: -r requirements.txt"
+* Run "pip install -r requirements.txt" in root folder
 * Type: "streamlit run Bio.Informatica.py"
 # Docker Hub
 * Install Docker in the System
