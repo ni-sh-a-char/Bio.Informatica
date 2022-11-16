@@ -32,5 +32,13 @@
   <img src="/FDA_Approved drugs.png" width="500", height="200" />
 </p>
 
+# Useful Links
 
+**[National Library for Medicine By National Centre for Biotechnology Information](https://www.ncbi.nlm.nih.gov/genome/)**
+
+**[SWISS-PROT - Database Commons](https://ngdc.cncb.ac.cn/databasecommons/database/id/5614)**
+
+**[GenBank](https://www.ncbi.nlm.nih.gov/genbank/)**
+
+**[Open Bioinformatics Journal](https://openbioinformaticsjournal.com/)**
 
