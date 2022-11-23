@@ -1,6 +1,6 @@
-Special thanks and regards to [Bhavya Singhal](https://www.linkedin.com/in/bhavya-singhal-b5b915213/) for introduction to the concept.
+Special thanks and regards to [Bhavya Singhal](https://www.linkedin.com/in/bhavya-singhal-b5b915213/)
 
-Special thanks to [Kuldeep Mishra](https://www.linkedin.com/in/kuldeep-mishra-b4b581208/) for technical support.
+Special thanks to [Kuldeep Mishra](https://www.linkedin.com/in/kuldeep-mishra-b4b581208/)
 
 Copyright (c) 2022 [Shivangi Yadav](https://www.linkedin.com/in/shivangi-yadav-8912621ba/) and [Piyush Mishra](https://www.linkedin.com/in/piyush-mishra-00/)
 
