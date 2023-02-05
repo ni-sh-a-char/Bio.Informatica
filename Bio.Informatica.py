@@ -204,23 +204,42 @@ def main():
         ######################
 
         #st.sidebar.header('Enter DNA sequence')
-        st.header('Enter DNA sequence')
 
-        sequence_input = ">DNA Query \n"
+        seq_file = st.file_uploader("Upload FASTA File",type=["fasta", "fa"])
+
+        if seq_file is not None:
+            byte_str = seq_file.read()
+            text_obj = byte_str.decode("UTF-8")
+            dna_record = SeqIO.read(io.StringIO(text_obj),"fasta")
+            #st.write(dna_record)
+            dna_seq = dna_record.seq
+        
+            details = st.radio("Details",("Description","Sequence"))
+            if details == "Description":
+                st.write(dna_record.description)
+            elif details == "Sequence":
+                st.write(dna_record.seq)
+
+        #st.header('Enter DNA sequence')
+
+        #sequence_input = ">DNA Query \n"
+
+        sequence_input = dna_record.seq
+        sequence = sequence_input
 
         #sequence = st.sidebar.text_area("Sequence input", sequence_input, height=250)
-        sequence = st.text_area("Sequence Input  (Remove stop codons if any)", sequence_input, height=250)
-        sequence = sequence.splitlines()
-        sequence = sequence[1:] # Skips the sequence name (first line)
-        sequence = ''.join(sequence) # Concatenates list to string
+        #sequence = st.text_area("Sequence Input  (Remove stop codons if any)", sequence_input, height=250)
+        #sequence = sequence.splitlines()
+        #sequence = sequence[1:] # Skips the sequence name (first line)
+        #sequence = ''.join(sequence) # Concatenates list to string
 
         st.write("""
         ***
         """)
 
         ## Prints the input DNA sequence
-        st.header('INPUT (DNA Query)')
-        sequence
+        #st.header('INPUT (DNA Query)')
+        #sequence
 
         ## DNA nucleotide count
         st.header('OUTPUT (DNA Nucleotide Count)')
