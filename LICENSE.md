@@ -1,8 +1,12 @@
 Special thanks and regards to [Bhavya Singhal](https://www.linkedin.com/in/bhavya-singhal-b5b915213/)
 
-Special thanks to [Kuldeep Mishra](https://www.linkedin.com/in/kuldeep-mishra-b4b581208/)
+[Kuldeep Mishra](https://www.linkedin.com/in/kuldeep-mishra-b4b581208/)
 
-Copyright (c) 2022 [Shivangi Yadav](https://www.linkedin.com/in/shivangi-yadav-8912621ba/) and [Piyush Mishra](https://www.linkedin.com/in/piyush-mishra-00/)
+[Shivangi Yadav](https://www.linkedin.com/in/shivangi-yadav-8912621ba/)
+
+Akansha Singh
+
+Copyright (c) 2022 [Piyush Mishra](https://www.linkedin.com/in/piyush-mishra-00/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
