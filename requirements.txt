@@ -8,6 +8,6 @@ altair
 mols2grid
 streamlit
 rdkit
-sklearn
+scikit-learn
 PyQt5 
 PyQtWebEngine
