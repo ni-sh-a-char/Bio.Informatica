@@ -9,3 +9,5 @@ mols2grid
 streamlit
 rdkit
 sklearn
+PyQt5 
+PyQtWebEngine

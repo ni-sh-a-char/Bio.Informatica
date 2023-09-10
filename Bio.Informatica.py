@@ -138,7 +138,7 @@ def main():
 
     st.title("Bio.Informatica")
 
-    menu = ["Intro", "DNA Sequence", "DNA Nucleotides", "Bioactivity Prediction", "DotPlot", "Solubility Prediction", "Molecular Descriptor Calculator", "FDA Approved Drugs"]
+    menu = ["Intro", "DNA Sequence", "DNA Nucleotides", "Bioactivity Prediction", "DotPlot", "Solubility Prediction", "Molecular Descriptor Calculator", "FDA Approved Drugs", "Humsafar"]
     choice = st.sidebar.selectbox("Select Activity", menu)
 
     if choice == "Intro":
@@ -671,6 +671,10 @@ def main():
                                     rename={"smiles": "SMILES", "generic_name": "Name"})._repr_html_()
         components.html(raw_html, width=900, height=1100, scrolling=False)
 
+    elif choice == "Humsafar":
+        st.subheader("Embedded Browser")
+        process = subprocess.Popen(['python','Humsafar.py'], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        components.iframe("process", width=800, height=600)
 
 
 if __name__ == '__main__':
