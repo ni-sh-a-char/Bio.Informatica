@@ -1,65 +1,55 @@
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+markdown
 
-# Bio.Informatica
+# BioInformatica
 
-![Screenshot](logo.png)
+BioInformatica is a JavaScript package that provides various bioinformatics functions for working with biological sequences and chemical data.
 
-Bio.Informatica is a common platform for studying Bioinformatics, Computational Biology, and Computational Chemistry. It provides various activities and tools for analysis and predictions in these fields.
+## Installation
 
-## Activities
-
-- Intro
-- DNA Sequence
-- DNA Nucleotides
-- Bioactivity Predictions
-- DotPlot
-- Solubility Prediction
-- Molecular Descriptor Calculator
-- FDA Approved Drugs
-
-## Methods to Run the Project
-
-### Terminal
-
-1. Install Python and Java on your system.
-2. Open the terminal in the folder where you have pulled the project.
-3. Run the following command in the root folder:
+You can install BioInformatica using npm:
 
 ```
-pip install -r requirements.txt
+npm install bioinformatica
 ```
 
-4. Type the following command to start the project:
+## Usage
+
+To use BioInformatica in your JavaScript/Node.js project, you can import the functions you need as follows:
+
 
 ```
-streamlit run Bio.Informatica.py
+const bioinformatica = require('bioinformatica');
+
+// Example usage:
+const seq1 = "ATCGATCG";
+const seq2 = "ATGGATCG";
+const k = 1;
+const t = 1;
+
+bioinformatica.dotplot(seq1, seq2, k, t);
+const gc = bioinformatica.gcContent(seq1);
+const at = bioinformatica.atContent(seq1);
+
+console.log("GC Content:", gc);
+console.log("AT Content:", at);
+
 ```
 
-### Docker Hub
+## Functions
 
-1. Install Docker on your system.
-2. Install Docker Hub on your system.
-3. Pull the Docker image using the following command in the terminal:
+BioInformatica provides the following functions:
 
-```
-docker pull piyushmishradocker/bio.informatica
-```
+    dotplot(seq1, seq2, k, t): Generates a dot plot for two sequences.
+    gcContent(seq): Calculates the GC content of a DNA sequence.
+    atContent(seq): Calculates the AT content of a DNA sequence.
+    generate(smilesList): Generates molecular descriptors for a list of SMILES strings.
+    dnaNucleotideCount(seq): Counts the occurrences of DNA nucleotides in a sequence.
 
-## Screenshots
+## Dependencies
 
-![Screenshot](intro.png)
+BioInformatica relies on the following dependencies:
 
-![DNA Sequence Analysis](DNA%20Sequence%20Analysis.png)
-![Molecular Descriptor Calculator](molecular%20descriptor%20calculator.png)
-![FDA Approved Drugs](FDA_Approved%20drugs.png)
+    tablesaw-js: A JavaScript library for working with tabular data.
+    rdkit-js: A JavaScript library for cheminformatics (for chemical data functions).
 
-## Useful Links
-
-- [National Library for Medicine By National Centre for Biotechnology Information](https://www.ncbi.nlm.nih.gov/genome/)
-- [SWISS-PROT - Database Commons](https://ngdc.cncb.ac.cn/databasecommons/database/id/5614)
-- [GenBank](https://www.ncbi.nlm.nih.gov/genbank/)
-- [Open Bioinformatics Journal](https://openbioinformaticsjournal.com/)
-
+You can install these dependencies using npm as described in the Installation section.
