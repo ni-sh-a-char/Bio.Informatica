@@ -1,0 +1,6 @@
+setup.py
+Bio.Informatica.egg-info/PKG-INFO
+Bio.Informatica.egg-info/SOURCES.txt
+Bio.Informatica.egg-info/dependency_links.txt
+Bio.Informatica.egg-info/requires.txt
+Bio.Informatica.egg-info/top_level.txt

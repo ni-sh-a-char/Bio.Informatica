@@ -1,44 +1,21 @@
-# Bio.Informatica
-![Screenshot](logo.png)
-# A Common Platform for the study related to Bioinformatics, Computational Biology and Computational Chemistry.
-# Activities
-* Intro
-* DNA Sequence
-* DNA Nucleotides
-* Bioactivity Predictions
-* DotPlot
-* Solubility Prediction
-* Molecular Descriptor Calculator
-* FDA Approved Drugs
-# Methods to run the project
-* Terminal
-* Docker Hub
-# Terminal
-# Install Python and Java into your System.
-* Open terminal in the folder where you have pull the project.
-* Run "pip install -r requirements.txt" in root folder
-* Type: "streamlit run Bio.Informatica.py"
-# Docker Hub
-* Install Docker in the System
-* Install Docker Hub in the System
-* [Docker Image Link](https://hub.docker.com/r/piyushmishradocker/bio.informatica)
-* In the terminal type : "docker pull piyushmishradocker/bio.informatica"
+# Bioinformatics Library
 
-# Screenshots of the Project
-![Screenshot](intro.png)
-<p float="left">
-  <img src="/DNA Sequence Analysis.png" width="500", height="200" />
-  <img src="/molecular descriptor calculator.png" width="500", height="200" /> 
-  <img src="/FDA_Approved drugs.png" width="500", height="200" />
-</p>
+## Overview
 
-# Useful Links
+The Bioinformatics Library is a Python library that provides a collection of functions and utilities for bioinformatics and molecular biology analysis. It offers various tools for sequence analysis, molecular property calculation, data visualization, and more.
 
-**[National Library for Medicine By National Centre for Biotechnology Information](https://www.ncbi.nlm.nih.gov/genome/)**
+## Features
 
-**[SWISS-PROT - Database Commons](https://ngdc.cncb.ac.cn/databasecommons/database/id/5614)**
+- Sequence analysis, including dot plots and nucleotide/amino acid counting.
+- Molecular property calculations, such as logP, molecular weight, and aromatic proportion.
+- Chemical structure handling and descriptor generation.
+- Data visualization using Altair and matplotlib.
+- And more...
 
-**[GenBank](https://www.ncbi.nlm.nih.gov/genbank/)**
+## Installation
 
-**[Open Bioinformatics Journal](https://openbioinformaticsjournal.com/)**
+You can install this library using pip. Run the following command:
 
+```
+pip install Bio.Informatica
+```

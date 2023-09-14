@@ -1,0 +1,7 @@
+biopython
+neatbio
+numpy
+pandas
+rdkit
+altair
+mols2grid
