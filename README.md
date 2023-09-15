@@ -1,55 +1,42 @@
-markdown
+# Bioinformatica
 
-# BioInformatica
+A Dart library that provides various bioinformatics functions, including sequence analysis and molecular descriptors calculation.
 
-BioInformatica is a JavaScript package that provides various bioinformatics functions for working with biological sequences and chemical data.
+## Features
+
+- Calculate sequence similarity and create dot plots.
+- Calculate GC and AT content of DNA sequences.
+- Calculate molecular descriptors for chemical compounds.
+- Count DNA nucleotides.
 
 ## Installation
 
-You can install BioInformatica using npm:
+Add this to your Dart project's `pubspec.yaml`:
 
 ```
-npm install bioinformatica
+dependencies:
+  bioinformatica: ^1.0.0
 ```
 
 ## Usage
-
-To use BioInformatica in your JavaScript/Node.js project, you can import the functions you need as follows:
-
-
 ```
-const bioinformatica = require('bioinformatica');
+import 'package:my_bioinformatics_library/my_bioinformatics_library.dart';
 
-// Example usage:
-const seq1 = "ATCGATCG";
-const seq2 = "ATGGATCG";
-const k = 1;
-const t = 1;
+void main() {
+  // Example usage:
+  
+  // Calculate sequence similarity and create a dot plot
+  dotplot("ATCG", "ATGG");
 
-bioinformatica.dotplot(seq1, seq2, k, t);
-const gc = bioinformatica.gcContent(seq1);
-const at = bioinformatica.atContent(seq1);
+  // Calculate GC and AT content of DNA sequences
+  double gc = gcContent("ATCGATCG");
+  double at = atContent("ATCGATCG");
 
-console.log("GC Content:", gc);
-console.log("AT Content:", at);
+  // Calculate molecular descriptors for chemical compounds
+  List<String> smilesList = ["CCO", "CCC", "CCN"];
+  List<MolecularDescriptor> descriptors = generate(smilesList);
 
+  // Count DNA nucleotides
+  Map<String, int> nucleotideCount = dnaNucleotideCount("ATCGATCG");
+}
 ```
-
-## Functions
-
-BioInformatica provides the following functions:
-
-    dotplot(seq1, seq2, k, t): Generates a dot plot for two sequences.
-    gcContent(seq): Calculates the GC content of a DNA sequence.
-    atContent(seq): Calculates the AT content of a DNA sequence.
-    generate(smilesList): Generates molecular descriptors for a list of SMILES strings.
-    dnaNucleotideCount(seq): Counts the occurrences of DNA nucleotides in a sequence.
-
-## Dependencies
-
-BioInformatica relies on the following dependencies:
-
-    tablesaw-js: A JavaScript library for working with tabular data.
-    rdkit-js: A JavaScript library for cheminformatics (for chemical data functions).
-
-You can install these dependencies using npm as described in the Installation section.
