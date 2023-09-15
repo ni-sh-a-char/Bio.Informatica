@@ -1,6 +1,0 @@
-name: bioinformatica
-description: A Dart library for bioinformatics functions
-version: 1.0.0
-dependencies:
-  rdkit: ^1.0.0 # Replace with the actual RDKit package version
-  mols2grid: ^1.0.0 # Replace with the actual mols2grid package version

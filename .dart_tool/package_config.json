@@ -1,0 +1,14 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "bioinformatica",
+      "rootUri": "../",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    }
+  ],
+  "generated": "2023-09-15T05:16:14.631788Z",
+  "generator": "pub",
+  "generatorVersion": "3.1.2"
+}
