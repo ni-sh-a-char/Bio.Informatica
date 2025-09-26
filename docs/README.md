@@ -7,227 +7,197 @@
 
 | Section | Description |
 |---------|-------------|
-| **[Overview](#overview)** | What the project is and why it exists |
-| **[Installation](#installation)** | How to get the library up and running (pip, conda, source) |
-| **[Quick‑Start / Usage](#usage)** | Minimal code to start using the core functionality |
-| **[API Documentation](#api-documentation)** | Detailed reference for the public modules, classes and functions |
-| **[Examples](#examples)** | Real‑world notebooks & scripts that showcase typical workflows |
-| **[Contributing & Development](#contributing--development)** | How to contribute, run tests, and build the docs |
-| **[License & Citation](#license--citation)** | Legal information and how to cite the software |
-
----  
-
-## Overview  
-
-Bio.Informatica is a **modular, extensible Python platform** that brings together tools for:
-
-* **Sequence analysis** – alignment, motif discovery, variant annotation.  
-* **Structural bioinformatics** – protein‑ligand docking, molecular dynamics preprocessing, cheminformatics utilities.  
-* **Systems biology** – pathway enrichment, network analysis, simulation of kinetic models.  
-
-All components share a **common data model** (based on `pydantic`/`dataclasses`) and a **unified I/O layer** that can read/write FASTA, FASTQ, PDB, SDF, CSV, JSON, and HDF5 files.  
-
-The library is deliberately **lightweight** (core dependencies < 30 MB) and **plug‑in friendly** – you can add custom analysis modules without touching the core code base.
+| **[Installation](#installation)** | How to get Bio.Informatica up and running on your machine. |
+| **[Quick‑Start / Usage](#quick-start--usage)** | Basic commands, CLI, and Python usage patterns. |
+| **[API Documentation](#api-documentation)** | Detailed reference for the public classes, functions and modules. |
+| **[Examples](#examples)** | Ready‑to‑run notebooks and scripts that showcase typical workflows. |
+| **[Development & Contribution](#development--contribution)** | Setting up a development environment, testing, and contributing. |
+| **[License & Citation](#license--citation)** | Legal information and how to cite the project. |
 
 ---  
 
 ## Installation  
 
-### 1. From PyPI (recommended)
+### 1. System Requirements  
+
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| **Operating System** | Linux, macOS, Windows (WSL) | Linux/macOS |
+| **Python** | 3.9 | 3.10 – 3.12 |
+| **CPU** | Any modern CPU | Multi‑core (≥4 cores) for parallel pipelines |
+| **RAM** | 4 GB | 16 GB+ for large datasets |
+| **Disk** | 2 GB free (plus space for data) | SSD for faster I/O |
+
+> **Note**: Some optional modules (e.g., molecular dynamics wrappers) require external binaries such as GROMACS, OpenMM, or RDKit. See the *Optional Dependencies* section below.
+
+### 2. Install via **pip** (recommended)
 
 ```bash
-# Create a clean environment (optional but recommended)
-python -m venv bioinf-env
-source bioinf-env/bin/activate   # on Windows: .\bioinf-env\Scripts\activate
+# Create and activate a clean virtual environment (optional but recommended)
+python -m venv .venv
+source .venv/bin/activate   # on Windows: .venv\Scripts\activate
 
-# Install the latest stable release
+# Upgrade pip and install Bio.Informatica
+pip install --upgrade pip
 pip install bio-informatica
 ```
 
-> **Tip:** The package name on PyPI is `bio-informatica` (dash, not dot).  
-
-### 2. From Conda (community channel)
+### 3. Install via **conda** (if you prefer the Conda ecosystem)
 
 ```bash
-conda create -n bioinf-env python=3.11
-conda activate bioinf-env
+conda create -n bioinf python=3.11
+conda activate bioinf
+
+# Bio.Informatica is available on conda-forge
 conda install -c conda-forge bio-informatica
 ```
 
-### 3. From source (development version)
+### 4. Installing from source (development version)
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourorg/Bio.Informatica.git
+git clone https://github.com/your-org/Bio.Informatica.git
 cd Bio.Informatica
 
 # Install in editable mode with all optional extras
 pip install -e .[all]
-
-# Or install only the core plus selected extras
-# pip install -e .[seq,chem]   # seq = sequence tools, chem = cheminformatics
 ```
 
-#### Optional dependencies (extras)
+#### Optional Extras  
 
-| Extra | What it adds | Install command |
-|-------|--------------|-----------------|
-| `seq` | Biopython, pysam, scikit‑bio | `pip install bio-informatica[seq]` |
-| `chem`| RDKit, Open Babel, pybel | `pip install bio-informatica[chem]` |
-| `ml`  | scikit‑learn, pytorch, tensorflow | `pip install bio-informatica[ml]` |
-| `all` | Everything above | `pip install bio-informatica[all]` |
+| Extra | Description | Install command |
+|-------|-------------|-----------------|
+| `ml` | Scikit‑learn, TensorFlow, PyTorch for ML pipelines | `pip install bio-informatica[ml]` |
+| `chem` | RDKit, OpenMM, OpenBabel for cheminformatics | `pip install bio-informatica[chem]` |
+| `viz` | Plotly, Bokeh, seaborn for interactive visualisation | `pip install bio-informatica[viz]` |
+| `all` | All of the above | `pip install bio-informatica[all]` |
 
-### 4. System requirements  
+### 5. Verify the installation  
 
-| Requirement | Minimum version |
-|-------------|-----------------|
-| Python      | 3.9+ (3.11 recommended) |
-| gcc / clang | 7.0+ (for compiled extensions) |
-| libstdc++   | 6.0+ |
-| CUDA (optional, for ML modules) | 11.2+ |
+```bash
+python -c "import bioinformatics; print(bioinformatics.__version__)"
+```
+
+You should see something like `0.3.2` (or the latest released version).
 
 ---  
 
-## Usage  
+## Quick‑Start / Usage  
 
-Below is a **minimal “Hello‑World”** that demonstrates the three pillars of the platform:
+### 1. Command‑Line Interface (CLI)  
 
-```python
-# -------------------------------------------------
-# 1️⃣  Import the high‑level façade
-# -------------------------------------------------
-from bioinformatica import Sequence, Molecule, Pathway
-
-# -------------------------------------------------
-# 2️⃣  Load a FASTA file and compute a simple statistic
-# -------------------------------------------------
-seq = Sequence.from_fasta("data/example.fasta")
-print(f"Sequence length: {len(seq)}")
-print(f"GC content: {seq.gc_content():.2%}")
-
-# -------------------------------------------------
-# 3️⃣  Load a small molecule (SDF) and compute a descriptor
-# -------------------------------------------------
-mol = Molecule.from_sdf("data/ligand.sdf")
-print(f"Molecular weight: {mol.molecular_weight():.2f} Da")
-print(f"LogP (XLogP3): {mol.logp():.2f}")
-
-# -------------------------------------------------
-# 4️⃣  Perform a quick pathway enrichment
-# -------------------------------------------------
-genes = ["TP53", "BRCA1", "EGFR", "MYC"]
-enrichment = Pathway.enrich(genes, db="KEGG")
-print(enrichment.head())
-```
-
-### Command‑line interface (CLI)
-
-Bio.Informatica ships with a small but handy CLI (`bioinf`).  
+Bio.Informatica ships with a powerful CLI called `bioinf`.  Run `bioinf --help` to see the top‑level commands.
 
 ```bash
-# Show help
+# General help
 bioinf --help
 
-# Convert a FASTQ to FASTA
-bioinf seq convert --in reads.fastq --out reads.fasta
+# List available sub‑commands
+bioinf list
 
-# Compute basic molecular descriptors for a whole SDF library
-bioinf chem descriptors --in library.sdf --out descriptors.csv
-
-# Run a quick KEGG enrichment on a gene list
-bioinf pathway enrich --genes genes.txt --db kegg --out enrichment.tsv
+# Example: Run a FASTA → ORF → Translation pipeline
+bioinf pipeline run \
+    --input data/genes.fasta \
+    --pipeline orf_translate \
+    --output results/translated_orfs.fasta
 ```
 
-All CLI commands accept a `--verbose` flag for detailed logging and a `--threads N` flag to parallelise where possible.
+#### Common CLI sub‑commands  
+
+| Command | Purpose |
+|---------|---------|
+| `pipeline run` | Execute a predefined analysis pipeline (e.g., `rna_seq`, `protein_docking`). |
+| `db import` | Load sequence/structure data into the internal SQLite/Neo4j store. |
+| `model train` | Train a machine‑learning model (e.g., classification of enzyme families). |
+| `visualize` | Launch an interactive Plotly dashboard for a given result set. |
+| `config edit` | Open the user configuration file (`~/.bioinf/config.yaml`). |
+
+### 2. Using the library from Python  
+
+```python
+>>> import bioinformatics as bio
+>>> # Load a FASTA file
+>>> seqs = bio.io.read_fasta("data/genes.fasta")
+>>> # Find open reading frames (ORFs)
+>>> orfs = bio.analysis.orf.find_orfs(seqs, min_len=150)
+>>> # Translate ORFs to protein sequences
+>>> proteins = bio.analysis.translate(orfs)
+>>> # Save the proteins
+>>> bio.io.write_fasta(proteins, "results/proteins.fasta")
+```
+
+#### Typical workflow pattern  
+
+```python
+# 1️⃣ Load data
+seqs = bio.io.read_fasta("my_sequences.fasta")
+
+# 2️⃣ Pre‑process / filter
+seqs = bio.preprocessing.filter_by_length(seqs, min_len=200)
+
+# 3️⃣ Core analysis (choose one or more modules)
+#   • Genomics → variant calling
+#   • Proteomics → peptide identification
+#   • Cheminformatics → ligand preparation
+variants = bio.genomics.variant_calling(seqs, reference="ref_genome.fasta")
+structures = bio.chemistry.prepare_ligands("ligands.sdf")
+
+# 4️⃣ Machine‑learning (optional)
+model = bio.ml.load_model("models/enz_classifier.pkl")
+preds = model.predict(variants.features)
+
+# 5️⃣ Visualise results
+bio.visualisation.plot_variant_distribution(variants, output="figs/var_dist.html")
+```
 
 ---  
 
 ## API Documentation  
 
-> **Note:** The documentation below reflects the **v2.3.0** release. Use `help(bioinformatica)` or `pydoc` for the most up‑to‑date signatures.
+Below is a high‑level overview of the public API.  Full docstrings are available in the code and can be rendered with `pydoc` or Sphinx.
 
-### Core Packages  
+### 1. `bioinformatics.io` – Input/Output utilities  
 
-| Package | Description | Most important objects |
-|---------|-------------|------------------------|
-| `bioinformatica.sequence` | Utilities for nucleic‑acid and protein sequences. | `Sequence`, `Alignment`, `MotifFinder` |
-| `bioinformatica.chemistry` | Cheminformatics, molecular descriptors, file conversion. | `Molecule`, `DockingEngine`, `Fingerprint` |
-| `bioinformatica.pathway` | Enrichment, network analysis, simulation. | `Pathway`, `Network`, `FluxSimulator` |
-| `bioinformatica.io` | Unified I/O layer (auto‑detects format). | `read`, `write`, `FileHandler` |
-| `bioinformatica.ml` | Machine‑learning wrappers (classification, clustering). | `Classifier`, `Regressor`, `Embedding` |
-| `bioinformatica.utils` | Helper functions (logging, tqdm wrappers, caching). | `logger`, `cached_property` |
+| Function | Description |
+|----------|-------------|
+| `read_fasta(path: str) -> Dict[str, str]` | Returns a dictionary `{header: sequence}`. |
+| `write_fasta(seqs: Mapping[str, str], path: str) -> None` | Writes a FASTA file from a mapping. |
+| `read_fastq(path: str) -> List[FastqRecord]` | Parses FASTQ files (supports gzip). |
+| `read_pdb(path: str) -> Bio.PDB.Structure` | Returns a Biopython `Structure` object. |
+| `export_csv(df: pandas.DataFrame, path: str) -> None` | Convenience wrapper for `df.to_csv`. |
 
----
+### 2. `bioinformatics.analysis` – Core analytical modules  
 
-### 1. `bioinformatica.sequence`
+| Sub‑module | Key functions / classes |
+|------------|--------------------------|
+| `orf` | `find_orfs(seqs, min_len=30)`, `ORF` dataclass |
+| `translate` | `translate(orfs, table=1)`, `reverse_translate(proteins)` |
+| `variant_calling` | `call_variants(bam_path, ref_fasta, **kwargs)` |
+| `phylogeny` | `build_tree(alignment, method='ml')`, `Tree` class |
+| `docking` | `prepare_protein(pdb_path)`, `run_autodock(ligand, protein, **params)` |
 
-```python
-class Sequence:
-    """Container for a single biological sequence (DNA, RNA or protein)."""
+### 3. `bioinformatics.chemistry` – Cheminformatics utilities  
 
-    @classmethod
-    def from_fasta(cls, path: str, *, id: str | None = None) -> "Sequence": ...
-    @classmethod
-    def from_fastq(cls, path: str) -> "Sequence": ...
+| Function / Class | Description |
+|------------------|-------------|
+| `prepare_ligands(sdf_path, keep_h=True) -> List[rdkit.Chem.Mol]` |
+| `compute_descriptors(mol) -> Dict[str, float]` |
+| `fingerprint(mol, fp_type='morgan', radius=2, nBits=2048)` |
+| `similarity(fp1, fp2, metric='tanimoto')` |
+| `run_md_simulation(system, steps=5000, engine='openmm')` |
 
-    def __len__(self) -> int: ...
-    def gc_content(self) -> float: ...
-    def translate(self, *, to_stop: bool = True) -> "Sequence": ...
+### 4. `bioinformatics.ml` – Machine‑learning helpers  
 
-    def reverse_complement(self) -> "Sequence": ...
-    def subseq(self, start: int, end: int) -> "Sequence": ...
+| Function / Class | Description |
+|------------------|-------------|
+| `train_classifier(X, y, model='rf', **kwargs) -> sklearn.base.BaseEstimator` |
+| `cross_validate(estimator, X, y, cv=5, scoring='accuracy')` |
+| `load_model(path) -> estimator` |
+| `save_model(estimator, path)` |
+| `predict_proba(estimator, X) -> np.ndarray` |
 
-    # Alignment helpers
-    def align(self, other: "Sequence", *, method: str = "global") -> "Alignment": ...
-```
+### 5. `bioinformatics.visualisation` – Plotting & dashboards  
 
-```python
-class Alignment:
-    """Result of a pairwise or multiple alignment."""
-
-    score: float
-    aligned_seq1: str
-    aligned_seq2: str
-    start1: int
-    start2: int
-
-    def identity(self) -> float: ...
-    def to_fasta(self, path: str) -> None: ...
-```
-
----
-
-### 2. `bioinformatica.chemistry`
-
-```python
-class Molecule:
-    """Thin wrapper around RDKit's Mol object with extra utilities."""
-
-    @classmethod
-    def from_sdf(cls, path: str, *, index: int = 0) -> "Molecule": ...
-    @classmethod
-    def from_smiles(cls, smiles: str) -> "Molecule": ...
-
-    def molecular_weight(self) -> float: ...
-    def logp(self) -> float: ...
-    def tpsa(self) -> float: ...
-    def fingerprint(self, *, radius: int = 2, nbits: int = 2048) -> "Fingerprint": ...
-
-    # Simple docking interface (requires AutoDock Vina or OpenBabel)
-    def dock(self, receptor: "Molecule", *, exhaustiveness: int = 8) -> "DockingResult": ...
-```
-
-```python
-class Fingerprint:
-    bits: bytes
-    nbits: int
-
-    def tanimoto(self, other: "Fingerprint") -> float: ...
-    def to_hex(self) -> str: ...
-```
-
----
-
-### 3. `bioinformatica.pathway`
-
-```python
+| Function | Description |
+|----------|-------------|
+|
